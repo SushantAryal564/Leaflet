@@ -27,7 +27,12 @@
       integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
       crossorigin=""
     ></script>
-
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <style>
       #mapdiv {
         height: 100vh;
@@ -35,8 +40,14 @@
     </style>
   </head>
   <body>
-    <div id="side-bar" class="col-md-3"></div>
     <div id="mapdiv" class="col-md-9"></div>
+    <div id="side-bar" class="col-md-3">
+      <button id="btnLocate" class="btn btn-primary btn-block">Locate</button>
+      <button id="btnZocalo" class="btn btn-primary btn-block">ZoomToZocalo</button>
+      <h4>Zoom Level: <span id="zoom-level"></span></h4>
+      <h4>Map Center: <span id="map-center"></span></h4>
+      <h4>Mouse-Location: <span id="mouse-location"/></span></h4>
+    </div>
     <script>
       var mymap;
       var lyresri;
@@ -62,9 +73,9 @@
         }
       );
       mymap.addLayer(lyresri);
-      setInterval(function () {
-        mymap.locate();
-      }, 5000);
+      // setInterval(function () {
+      //   mymap.locate();
+      // }, 5000);
       mymap.on("click", function (e) {
         console.log(e);
         if (e.originalEvent.shiftKey) {
@@ -93,12 +104,31 @@
         mrkCurrentLocation = L.circle(e.latlng, {
           radius: e.accuracy / 2,
         }).addTo(mymap);
-        mymap.setView(e.latlng, 14);
+        mymap.setView(e.latlng, 17);
       });
       mymap.on("locationerror", function (e) {
         console.log(e);
         alert("Location wasn't found");
       });
+      mymap.on("zoomend", function (e) {
+        $("#zoom-level").html(mymap.getZoom());
+      });
+      mymap.on("moveend",function(e){
+        $("#map-center").html(LatLngToArrayString(mymap.getCenter()));
+      })
+      mymap.on("mousemove",function(e){
+        $("#mouse-location").html(LatLngToArrayString(e.latlng));
+      })
+      function LatLngToArrayString(ll){
+        console.log(ll);
+        return "["+ll.lat.toFixed(5)+" , "+ll.lng.toFixed(5)+"]";
+      }
+      $("#btnLocate").click(function(){
+        mymap.locate();
+      })
+      $("#btnZocalo").click(function(){
+        mymap.setView([19.43262,-99.13325],17)
+      })
     </script>
   </body>
 </html>
