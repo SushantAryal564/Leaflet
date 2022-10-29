@@ -1,0 +1,83 @@
+Leaflet
+
+1. Leaflet Documentation
+-Leaflet is made up of object classes
+-These object all have
+  - Factories or constructor method
+    .parameter
+    .options parameter
+  -Events
+    . Event Object
+  -Methods
+    .paramters
+    .return value
+  -Properties
+  We assign instance of those objects to variables in order to interact with them
+
+  Leaflet Basic Types
+  .LatLng - Defines a points
+    .var IICenter = L.latLng(195,-88.2)
+    .var IICenter = L.LatLng([19.5,-99.5])
+    .var IICenter = L.LatLng({lat:19.5,lng:-99.2,alt:1200})
+  
+  .LatLngBounds - Defines a rectangles
+    .var IIcrnr1 = L.latLng(40,50);
+2. Leaflet Plug-ins
+   -Leaflet is lightweight
+   -Leaflet requres plugins to provide extended features that aren't native in other API's
+   -Plug-ins are
+    -Code that someone else wrote to add functionality that is not included in the leaflet core:
+      -Javascripts
+      -css
+   -There are a large number of plug-ins available.
+   -
+
+3. The Leaflet Map objects
+   .options
+    .zoomcontrol
+    .attributionControl
+    .center
+    .zoom
+    .minZoom
+    .maxZoom
+    .layers
+    .maxBounds
+    .dragging
+   .Events
+    .Layers Events: When layers are added or removes
+    .Map state change Event: Before and or after panning or zooming
+    .Geolocation Events: When geolocation succeeds or fails
+    .Interaction Events: Mouse click,hover,keypress,
+   .Methods
+    .addControl, removeControl
+    .addLayer, removeLayer
+    .hasLayer:returns true or false depending where layer is present in map or not
+    .eachLayer:takes callback function to run for each layers
+    .openPopup,closePopup
+    .locate
+    .stopLocate
+    .distance
+    .getCenter, getBounds
+    .panTo, fitBounds
+    .setView
+    .getZoom, setZoom
+    .zoomIn, zoomOut
+    .getMinZoom, setMinZoom
+    .getMaxZoom, setMaxZoom
+
+4. The Leaflet Map Object
+   When we click on a map DOM event is used so when we click on the dom element that contain a leaflet map that click event in the dom elements get passed down to leaflet and leaflet creates another event this leaflet event has latlng information. Leaflet take screen coordinate and convert it to the geographic coordinate. 
+
+5. The Leaflet Location Methods
+   It's map location method by which we access the location of the map and by which we can either zoom to current location on earth or add gps location to a map.
+
+
+    
+
+
+
+
+
+
+
+
