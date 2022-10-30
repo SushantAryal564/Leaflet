@@ -71,6 +71,37 @@ Leaflet
 5. The Leaflet Location Methods
    It's map location method by which we access the location of the map and by which we can either zoom to current location on earth or add gps location to a map.
 
+6. Leaflet Popups
+   Popups are a common feature in web mapping
+   Most commonly used to display properties of a feature when its clicked on
+   You can bind a popup to an individual feature using the feature bindPopup method
+   You can also place a popup directly on the map with no features
+   can contain HTML <img>,<button>,<form>
+   POPUP OPTIONS, METHODS,Events
+    constructor
+      L.popup(options)
+    options
+      minWidth,maxWidth
+      maxHeight
+      autoPan
+      KeepInview
+      closeButton
+      autoClose
+    Methods
+      getLatlng,setLatLng
+      getContent,setContent
+      isOpen
+      openOn
+      bringToFront, bringToBack
+    Other objects
+      bindPopup
+      openPopup
+      
+
+
+
+
+
 
     
 
