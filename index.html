@@ -17,6 +17,9 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="Plugins/LControl/src/L.Control.Pan.css"/>
+    <link rel="stylesheet" href="Plugins/ZoomSlider/L.Control.Zoomslider.css"/>
+    <link rel="stylesheet" href="Plugins/MousePostion/L.Control.MousePosition.css"/>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -33,6 +36,11 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="Plugins/MousePostion/L.Control.MousePosition.js"></script>
+    <script src="Plugins/LControl/src/L.Control.Pan.js" ></script>   
+
+    <!-- <script src="Plugins/ZoomSlider/L.Control.Zoomslider.js"/> -->
+
     <style>
       #mapdiv {
         height: 100vh;
@@ -40,26 +48,31 @@
     </style>
   </head>
   <body>
-    <div id="mapdiv" class="col-md-9"></div>
-    <div id="side-bar">
+    <div id="side-bar" class="col-md-3">
       <button id="btnLocate" class="btn btn-primary btn-block">Locate</button>
       <button id="btnZocalo" class="btn btn-primary btn-block">ZoomToZocalo</button>
       <h4>Zoom Level: <span id="zoom-level"></span></h4>
       <h4>Map Center: <span id="map-center"></span></h4>
       <h4>Mouse-Location: <span id="mouse-location"/></span></h4>
-
     </div>
+    <div id="mapdiv" class="col-md-9"></div>
     <script>
       var mymap;
       var lyresri;
       var mrkCurrentLocation;
       var popZocalo;
       var popExample;
+      var ctlZoom;
+      var ctlAttribute;
+      var ctlScale;
+      var ctlPan;
+      var ctlZoomSlider;
+      var ctlMouseposition;
 
       mymap = L.map("mapdiv", {
         center: [19.4, -99.2],
         zoom: 5,
-        zoomControl: true,
+        zoomControl: false,
         zoomDelta: 1,
         dragging: true,
         minZoom: 5,
@@ -71,24 +84,45 @@
       });
       lyresri = L.tileLayer(
         "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-        {
-          attribution:
-            "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
-        }
       );
       mymap.addLayer(lyresri);
+
+      // Zoom Control 
+      ctlZoom = L.control.zoom({zoomInText:'+',zoomOutText:'-',position:'topleft'})
+      ctlZoom.addTo(mymap);
+      
+      // Attribution control
+      ctlAttribute = L.control.attribution({position:'bottomleft'}).addTo(mymap);
+      ctlAttribute.addAttribution('Sushant Aryal')
+      ctlAttribute.addAttribution('&copy; <a href="http://wwww.fb.com">Facebook</a>')
       // setInterval(function () {
       //   mymap.locate();
       // }, 5000);
+
+      // Scale Bar
+      ctlScale = L.control.scale({position:"bottomright",metric:true,imperial:false}).addTo(mymap);
+      
+      // Pan Control
+      ctlPan = L.control.pan().addTo(mymap); 
+
+      // Zoom slider
+      ctlZoomSlider = L.control.zoomslider().addTo(mymap);
+
+      // PopUP
       popZocalo = L.popup({maxWidth:200,keepInView:true});
 
       popZocalo.setLatLng([19.43262,-99.13325]);
       popZocalo.setContent("<h2>Zocalo</h2><img src='./img/zocalo.jpg' style='width:200px'/>");
-      
-      popExample = L.popup();
-      popExample.setLatLng([19.4132,-99.1859]);
-      popExample.setContent($("#side-bar")[0])
-      popExample.openOn(mymap);
+
+      // Mouse Postion
+      // ctlMouseposition = L.control.mousePosition().addTo(map);
+
+      // popExample = L.popup();
+      // popExample.setLatLng([19.4132,-99.1859]);
+      // popExample.setContent($("#side-bar")[0])
+      // popExample.openOn(mymap);
+
+      // Map Event
 
       mymap.on("click", function (e) {
         console.log(e);
@@ -137,6 +171,8 @@
         console.log(ll);
         return "["+ll.lat.toFixed(5)+" , "+ll.lng.toFixed(5)+"]";
       }
+
+      // DOM manipuation response on Map
       $("#btnLocate").click(function(){
         mymap.locate();
       })
@@ -146,5 +182,6 @@
       })
       
     </script>
+
   </body>
 </html>

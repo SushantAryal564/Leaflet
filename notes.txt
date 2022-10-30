@@ -96,7 +96,45 @@ Leaflet
     Other objects
       bindPopup
       openPopup
-      
+
+7. Native Leaflet Controls
+   Controls are map elements used to handle user interaction with the map
+   Controls are simply HTML elements
+   Controls are simply HTML elements
+    The zoom control is an html elements containing two buttons
+  Leaflet handles placing the control in the following position:
+    Topleft,topright,bottomleft,bottomright
+  The basic process is to:
+    Create an instance of the control using is constructor method and setting its options
+    Add it to the map
+  
+  Leaflet Controls
+  .Control Methods
+    .getPosition,setPosition
+    .getContainer
+    .addTo,remove
+  . There are 4 controls native to leaflet
+    . Zoom: visible by default
+    .Attribution: handles citation of map layers, visible by default
+    .Scale: a scale bar
+    .Layers: allows switching background layers and turning overlay layers on and off.
+  
+  Leaflet Control (Plugins)
+  i. Pan Control
+  ii. Zoom Slider
+  iii. Mouse Cursor
+  iv. ScaleFactor
+  v. Measure
+  vi. Easy button
+  vii. side bar
+  viii. Magnifying glass
+  ix. Mini map
+  x. Sync
+  xi. Geocoding
+  xii. Routing
+  
+
+  
 
 
 
