@@ -163,6 +163,64 @@ Leaflet
     -Image Overlay(jpg,png,tiff,etc)
     -Leaflet.TileLayer.MBTiles
 
+vector Layers in Leaflet
+  -Two primary ways to represent vectors(points,lines and polygons)
+    -Native leaflet layers
+      -If you just want to add something to the map that doesn't have attributes assocaited with it
+      -Serve same purpopse as graphics in ArcGIS
+        -Markers
+        -Polyline
+        -polygon
+    -GeoJSON
+      -Text based data storage format based on GeoJSON
+      -Can include attributes
+      -The web map equivalent of a shapefile
+    -Careful
+      -Native leaflet object stores coordinate as latlng objects.
+    -Parent of all vector features
+      -Each geometry is considered a layer
+      -options
+        -attribution
+      -Events
+        -add,remove
+        -popupopen,popupclose
+        -tooptiopen,tooltipclose
+        -click, doubleclick,contextmenu
+        -mousedown,mouseover,mouseout
+      -Methods
+        -addTo,removeFrom
+        -bindPopup,bindTooltip
+        -setPopupContent,setTooltipContent
+        -openPopup,closePopup
+        -openTooltip,closeTooltip
+
+The Marker Object
+  Point Geometry Marker refers to a point geometry.
+  Contstructor:
+    var myPt = L.marker([19.4256,-99.6051],{})
+  Options:
+    icon:control the symbology of the marker
+    draggable
+    opacity
+  Events
+    -move
+    -dragstart,dragend
+  Methods
+    -toGeoJSON()
+    -getLatLng(),setLatLng()
+    -setIcon().setOpcaity()
+
+The path and polyline objects
+Path
+  constructor: No constructor cause we cannot instanciate it directly
+  Abstract class
+    -Parent of Polyline,polygon,circle,rectangles
+    
+
+
+
+
+
 
 
 
