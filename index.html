@@ -53,6 +53,7 @@
         <button id="btnLocate" class="btn btn-primary btn-block">Locate</button>
         <button id="btnZocalo" class="btn btn-primary btn-block">ZoomToZocalo</button>
         <button id="btnTudikhel" class="btn btn-primary btn-block">ZoomToTudikhel</button>
+        <button id="btnRanipokhari" class="btn btn-primary btn-block">ZoomToRanipokhari</button>
         <h4>Zoom Level: <span id="zoom-level"></span></h4>
         <h4>Map Center: <span id="map-center"></span></h4>
         <h4>Mouse-Location: <span id="mouse-location"/></span></h4>
@@ -79,6 +80,10 @@
       var objOverlays;
       var lyrTudikhel;
       var mrkMouse;
+      var plnroute;
+      var plnroutes;
+      var polyTudikhel;
+      var polyRanipokahri;
 
       mymap = L.map("mapdiv", {
         center: [27.70415,85.31271],
@@ -102,6 +107,14 @@
       
       lyrTudikhel = L.imageOverlay("./img/tudikhel.png",[[27.70415,85.31271],[27.69916,85.31883]],{opacity:0.5}).addTo(mymap);
 
+      polyTudikhel = L.polygon([[[27.70392,85.31622],[27.70453,85.31388],[27.69992,85.31366],[27.69967,85.31652]],[[27.70380824,85.31432945],[27.70337129,85.31441525],[27.70364676,85.31466193]]],{color:"red",fillColor:'yellow'}).addTo(mymap);
+      
+      polyRanipokahri = L.polygon([[27.70841512,85.31461853],[27.70841512,85.31634527],[27.70718031,85.31624874],[27.70718031,85.31442548]],{color:"purple"}).addTo(mymap);
+      
+      plnroute = L.polyline([[27.70392,85.31622],[27.70453,85.31388],[27.69992,85.31366],[27.69967,85.31652],[27.70392,85.31622]],{color:'green'}).addTo(mymap);
+      
+      plnroutes = L.polyline([[[27.70392,85.31622],[27.70453,85.31388],[27.69992,85.31366],[27.69967,85.31652],[27.70392,85.31622]],[[27.70841512,85.31461853],[27.70841512,85.31634527],[27.70718031,85.31624874],[27.70718031,85.31442548],[27.70841512,85.31461853]]],{color:'green'}).addTo(mymap);
+      
       objBasemaps = {
         "Open Street Maps":lyrOsm,
         "Topo Map":lyrTopo,
@@ -111,6 +124,7 @@
       }
       objOverlays={
         "Tudikhel":lyrTudikhel,
+        "raniPokhari":polyRanipokahri,
       };
 
        L.control.layers(objBasemaps,objOverlays).addTo(mymap);
@@ -130,6 +144,7 @@
 
       mrkMouse = L.marker([27.70229,85.31499],{draggable:true}).addTo(mymap);
       mrkMouse.bindTooltip("Tudikhel ground")
+
 
       // popExample = L.popup();
       // popExample.setLatLng([19.4132,-99.1859]);
@@ -178,7 +193,7 @@
         mrkMouse.setTooltipContent("Current Location: " + mrkMouse.getLatLng().toString()+"<br>"+"Distance to Tudikhel is: "+mrkMouse.getLatLng().distanceTo([27.70229,85.31499]).toFixed(0)/1000);
       })
       function LatLngToArrayString(ll){
-        return "["+ll.lat.toFixed(5)+" , "+ll.lng.toFixed(5)/+"]";
+        return "["+ll.lat.toFixed(8)+" , "+ll.lng.toFixed(8)+"]";
       }
       $("#btnLocate").click(function(){
         mymap.locate();
@@ -191,6 +206,9 @@
         mymap.setView([27.70229,85.31499],17)
         mrkMouse.setLatLng([27.70229,85.31499])
         mrkMouse.setTooltipContent("Tudikhel Ground Kathmandu")
+      })
+      $("#btnRanipokhari").click(function(){
+        mymap.fitBounds(plnroutes.getBounds())
       })
       $('#sldOpacity').on('change',function(){
         $("#image-opacity").html(this.value);

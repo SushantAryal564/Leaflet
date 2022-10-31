@@ -215,7 +215,84 @@ Path
   constructor: No constructor cause we cannot instanciate it directly
   Abstract class
     -Parent of Polyline,polygon,circle,rectangles
+  Methods
+    -setStyle()
+    -redraw() Once we change the layer style we need to redraw 
+    -bringToFront(),bringToBack()
+  
+  Options
+    -color: apply to line or border of polygon
+    -weight: width of the line or a border
+    -opacity: It referes to the lines or border of polygons
+    -dashArray: any dash pattern we want
+    -fillColor: interior color of a polygon
+    -fillopacity: interior opacity of a polygon
+  
+Polyline
+constructor: varline = L.polyline([arrays of points],{options})
+             varPolyline = L.polyline([[[],[]],[[],[]]],{options})
+Options:
+  -smoothfactor
+Methods:
+  -toGeoJson()
+  -getLatLngs(),setLatLngs(),addLatLngs()
+  -getCenter(),getBounds()-to test spatial relationship for instance its overlap or not.
+
+
+The Polygon objects
+constructor
+  varpoly = L.polygon([[],[],[]],{options})
+  varPoly = L.polygon([[[],[]],[[],[]]],{options}) To create a rings of polygon
+
+Other Leaflet Layers
+  Rectangle- extends Polygon
+    constructor:
+      var myRect = L.rectangle(latlngBnd,{})
+    Methods:
+      setBounds();
+  CircleMarker - extends Path
+    constructor:
+      var myCircleMarker = L.circleMarker(latlng,{})
+    Options
+      radius(pixels)
+    Methods
+      getLatLng(),setLatLng()
+      getRadius(),setRadius()
+  Circle- extends circleMarker (radius in m rather than in pixels)
+    constructor:
+      var myCircle = L.circle(latlng,{})
+    options:
+
+Layer Group
+constructor
+  var lyrGroup = L.layerGroup([lyr1, lyr2,lyr3])
+Methods
+  toGeoJSON()
+  addLayer(),removeLayer()
+  hasLayer()
+  getLayers()
+  eachLayer()
+
+Feature Group
+constructor:
+  var lyrFeatureGroup = L.featureGroup([lyr1,lyr2,lyr3])
+Events:
+  layeradd,layerremove
+Methods:
+  bindpopup(),bindTooltip()
+  setStyle()
+  bringToFront(),bringToBack()
+  getBounds()
+
+
+
+
     
+
+
+
+
+
 
 
 
