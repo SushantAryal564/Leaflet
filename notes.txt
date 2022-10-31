@@ -132,9 +132,38 @@ Leaflet
   x. Sync
   xi. Geocoding
   xii. Routing
-  
 
+  Introduction to Layers
+  Layers in Leaflets
+  .BaseMaps
+    .Raster background layer
+    .TileLayers
+      .individual Image(256*256)
+      .The tiles are index spatially so its easy for the software to quickly find exactly which tiles are needed to fill the current map view. 
+      .There are different set of tiles for each zoom level.
+    .One active at a time
+    .Custom BaseMaps
+    
+  .Overlays Layers
+    .vector-GeoJSON
+    .Layer = 1 feature
+    .FeatureGroup = Multiple feature
+    .ImageOverlay
   
+  The Layer Control
+  -Google
+    -L.GridLayer.GoogleMutant
+  -bing
+    -Bing Map Layers
+  -WMS
+    -Leaflet.WMS
+  -ArcGIS Online
+    -ESRI Leaflets
+  -Custom
+    -Image Overlay(jpg,png,tiff,etc)
+    -Leaflet.TileLayer.MBTiles
+
+
 
 
 
