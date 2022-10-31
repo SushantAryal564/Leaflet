@@ -55,6 +55,8 @@
         <h4>Zoom Level: <span id="zoom-level"></span></h4>
         <h4>Map Center: <span id="map-center"></span></h4>
         <h4>Mouse-Location: <span id="mouse-location"/></span></h4>
+        <h4>Image Opacity: <span id="image-opacity">0.5</span></h4>
+        <input type="range" id ='sldOpacity' min="0" max="1" step="0.1" value="0.5">
       </div>
       <div id="mapdiv" class="col-md-9"></div>
     </div>
@@ -74,10 +76,11 @@
       var ctlLayers;
       var objBasemaps;
       var objOverlays;
+      var lyrTudikhel;
 
       mymap = L.map("mapdiv", {
-        center: [19.4, -99.2],
-        zoom: 5,
+        center: [27.70415,85.31271],
+        zoom: 15,
         zoomControl: false,
         zoomDelta: 1,
         dragging: true,
@@ -94,6 +97,8 @@
       lyrwatercolor = L.tileLayer.provider('Stamen.Watercolor');
       lyrTopo = L.tileLayer.provider('OpenTopoMap');
       mymap.addLayer(lyrImagery);
+      
+      lyrTudikhel = L.imageOverlay("./img/tudikhel.png",[[27.70415,85.31271],[27.69916,85.31883]],{opacity:0.5}).addTo(mymap);
 
       objBasemaps = {
         "Open Street Maps":lyrOsm,
@@ -102,7 +107,9 @@
         "Outdoors":lyrOutdoors,
         "Watercolor":lyrwatercolor,
       }
-      objOverlays={};
+      objOverlays={
+        "Tudikhel":lyrTudikhel,
+      };
 
        L.control.layers(objBasemaps,objOverlays).addTo(mymap);
       
@@ -172,9 +179,10 @@
         mymap.setView([19.432662,-99.13324],17)
         mymap.openPopup(popZocalo);
       })
-
-
-
+      $('#sldOpacity').on('change',function(){
+        $("#image-opacity").html(this.value);
+        lyrTudikhel.setOpacity(this.value);
+      })
     </script>
   </body>
 </html>
